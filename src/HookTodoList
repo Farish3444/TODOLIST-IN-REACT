@@ -1,0 +1,50 @@
+import React,{useState} from "react";
+import "./App.css";
+
+function App() {
+
+const [inputval,setinputval] = useState('');
+const [data,setdata] = useState([]);
+
+const handleSubmit = (e)=>{
+  e.preventDefault();
+  console.log(inputval)
+  if(inputval){
+  setdata([...data,inputval])
+  }else{
+    alert('value needed')
+  }
+}
+
+const handleDelete=(val)=>{
+  console.log(val)
+  const f = data.filter((f,i) => i !== val)
+  setdata(f);
+}
+
+const listit = data.map((m,i)=>(
+  <ul key={i}>
+      <li>{m}</li>
+      <button 
+      onClick={()=>handleDelete(i)}
+      >del</button>
+  </ul>
+))
+
+  return (
+    <main>
+    Hello There, this is cool
+  <form onSubmit={handleSubmit}>
+    <input
+      value={inputval}
+      onChange={e =>setinputval(e.target.value)}
+     />
+  <button>Submit</button>   
+  <br/>
+  </form>  
+  {listit}
+    </main>
+  );
+}
+
+export default App;
